@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:root {
+  --nav-h: 60px;
+  --ease-choreo: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.2, 1);
+  --dur-slow: 0.8s;
+  --dur-med: 0.5s;
+  --dur-fast: 0.25s;
+}
+
+body {
+  background: #faf8f3;
+  color: #1b1b18;
+  font-family: Inter, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #2e5c4f;
+  color: #faf8f3;
+}
+
+/* ---------- scroll progress: one quiet pine rule ---------- */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---------- restrained buttons ---------- */
+.btn {
+  display: inline-block;
+  border: 1px solid #1b1b18;
+  padding: 0.85rem 1.9rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #1b1b18;
+  background: transparent;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.btn:hover {
+  background: #1b1b18;
+  color: #faf8f3;
+}
+.btn-solid {
+  background: #1b1b18;
+  color: #faf8f3;
+}
+.btn-solid:hover {
+  background: transparent;
+  color: #1b1b18;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+:focus-visible {
+  outline: 2px solid #2e5c4f;
+  outline-offset: 3px;
+}
+
+/* ---------- hero: pinned fold, calm mechanics ---------- */
+.hero-scrub {
+  --p: 0;
+  position: relative;
+  height: 170vh;
+}
+.hero-stage {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  height: calc(100svh - var(--nav-h));
+  overflow: hidden;
+  overflow: clip;
+}
+.hero-bend {
+  height: 100%;
+  transform-origin: 50% 0%;
+  transform: perspective(1600px) rotateX(calc(var(--p) * -10deg)) scale(calc(1 - var(--p) * 0.08));
+  filter: brightness(calc(1 - var(--p) * 0.2));
+  will-change: transform;
+}
+.hero-copy {
+  opacity: calc(1 - var(--p) * 1.4);
+  will-change: opacity;
+}
+/* hero depth layers: kicker drifts least, supporting block exits first and softens */
+.depth-a {
+  transform: translateY(calc(var(--p) * -5vh));
+  will-change: transform;
+}
+.depth-b {
+  transform: translateY(calc(var(--p) * -9vh));
+  will-change: transform;
+}
+.depth-c {
+  transform: translateY(calc(var(--p) * -14vh));
+  opacity: calc(1 - var(--p) * 2);
+  filter: blur(calc(var(--p) * 3px));
+  will-change: transform, opacity;
+}
+.slide-over {
+  position: relative;
+  z-index: 20;
+}
+/* inspect exit: the instrument tips forward as the next scene covers it.
+   Fold reserved for the final stretch of the pin — one language, two hinges. */
+.inspect {
+  --p: 0;
+}
+.inspect[data-scrub] .inspect-stage {
+  transform-origin: 50% 100%;
+  transform: perspective(1600px) rotateX(calc((clamp(var(--p), 0.55, 1) - 0.55) / 0.45 * 7deg)) scale(calc(1 - (clamp(var(--p), 0.55, 1) - 0.55) / 0.45 * 0.05));
+  filter: brightness(calc(1 - (clamp(var(--p), 0.55, 1) - 0.55) / 0.45 * 0.25));
+  will-change: transform;
+}
+
+/* ---------- editorial hairlines ---------- */
+.hrow {
+  border-top: 1px solid #e4e2d8;
+}
+.hrow-d {
+  border-top: 1px solid rgba(250, 248, 243, 0.16);
+}
+
+/* ---------- reveals: opacity only, never hidden without JS ---------- */
+html.js .rv {
+  opacity: 0;
+  transition: opacity 0.8s ease, filter 0.9s ease;
+}
+html.js .rv.is-in {
+  opacity: 1;
+}
+/* focus variant: headlines resolve from soft to sharp, once */
+html.js .rv-blur {
+  filter: blur(8px);
+}
+html.js .rv-blur.is-in {
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    opacity: 1;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- faq accordion ---------- */
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-a.open {
+  grid-template-rows: 1fr;
+}
+.faq-a > div {
+  overflow: hidden;
+}
+
+/* ---------- terminal cursor ---------- */
+@keyframes tblink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.tcursor {
+  animation: tblink 1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tcursor {
+    animation: none;
+  }
+}
+
+/* ---------- inspect: pinned magnifier, quiet instrument ---------- */
+.inspect-stage {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  height: calc(100svh - var(--nav-h));
+  overflow: hidden;
+}
+.inspect-field {
+  aspect-ratio: 3 / 2;
+  width: min(100%, max(280px, calc((100svh - var(--nav-h) - 400px) * 1.5)));
+}
+.inspect-grid {
+  background-image:
+    linear-gradient(rgba(250, 248, 243, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 248, 243, 0.14) 1px, transparent 1px);
+  background-size: calc(100% / 3) 50%;
+}
+.inspect-frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 33.3334%;
+  height: 50%;
+  border: 1px solid #faf8f3;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.inspect-frame::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  background: #faf8f3;
+}
+.inspect[data-step='0'] .inspect-frame { transform: translate(0%, 0%); }
+.inspect[data-step='1'] .inspect-frame { transform: translate(100%, 0%); }
+.inspect[data-step='2'] .inspect-frame { transform: translate(200%, 0%); }
+.inspect[data-step='3'] .inspect-frame { transform: translate(0%, 100%); }
+.inspect[data-step='4'] .inspect-frame { transform: translate(100%, 100%); }
+.inspect[data-step='5'] .inspect-frame { transform: translate(200%, 100%); }
+.inspect .cap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.inspect[data-step='0'] .cap-0,
+.inspect[data-step='1'] .cap-1,
+.inspect[data-step='2'] .cap-2,
+.inspect[data-step='3'] .cap-3,
+.inspect[data-step='4'] .cap-4,
+.inspect[data-step='5'] .cap-5 {
+  opacity: 1;
+}
+.inspect .dot {
+  transition: background 0.3s ease;
+}
+.inspect[data-step='0'] .dot-0,
+.inspect[data-step='1'] .dot-1,
+.inspect[data-step='2'] .dot-2,
+.inspect[data-step='3'] .dot-3,
+.inspect[data-step='4'] .dot-4,
+.inspect[data-step='5'] .dot-5 {
+  background: #faf8f3;
+}
+/* loupe rides a vertical track on the rail: parked low, travels up as you scroll */
+.inspect-track {
+  padding: 25% 0;
+}
+.inspect-loupe-fixed {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.inspect[data-step='0'] .inspect-loupe-fixed { transform: translateY(25%); }
+.inspect[data-step='1'] .inspect-loupe-fixed { transform: translateY(15%); }
+.inspect[data-step='2'] .inspect-loupe-fixed { transform: translateY(5%); }
+.inspect[data-step='3'] .inspect-loupe-fixed { transform: translateY(-5%); }
+.inspect[data-step='4'] .inspect-loupe-fixed { transform: translateY(-15%); }
+.inspect[data-step='5'] .inspect-loupe-fixed { transform: translateY(-25%); }
+@media (max-width: 1023.98px) {
+  .inspect-track {
+    padding: 0;
+  }
+  .inspect[data-step] .inspect-loupe-fixed {
+    transform: none;
+  }
+}
+/* loupe detail cards: the focused cell, laid out clean at readable size */
+.inspect .detail {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.inspect[data-step='0'] .detail-0,
+.inspect[data-step='1'] .detail-1,
+.inspect[data-step='2'] .detail-2,
+.inspect[data-step='3'] .detail-3,
+.inspect[data-step='4'] .detail-4,
+.inspect[data-step='5'] .detail-5 {
+  opacity: 1;
+  transform: none;
+}
