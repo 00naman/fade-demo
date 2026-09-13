@@ -66,7 +66,7 @@ export function Nav() {
         </nav>
         <button
           onClick={() => scrollToId('#consult')}
-          className="border border-ink px-4 py-2 text-[13px] font-medium transition-colors hover:bg-ink hover:text-paper"
+          className="border border-ink px-4 py-2 text-[13px] font-medium transition-colors hover:border-pine hover:bg-pine hover:text-paper"
         >
           Request cover
         </button>
@@ -102,7 +102,7 @@ export function Footer() {
                       e.preventDefault();
                       scrollToId(hash);
                     }}
-                    className="text-paper/70 transition-colors hover:text-paper"
+                    className="text-paper/70 transition-colors hover:text-sage"
                   >
                     {label}
                   </a>
@@ -120,7 +120,7 @@ export function Footer() {
                     e.preventDefault();
                     scrollToId('#consult');
                   }}
-                  className="text-paper/70 transition-colors hover:text-paper"
+                  className="text-paper/70 transition-colors hover:text-sage"
                 >
                   Request cover
                 </a>

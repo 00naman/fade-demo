@@ -44,7 +44,7 @@ export function Reveal({ children, className = '', blur = false }) {
 function Rail({ index, label, dark = false }) {
   return (
     <div className="lg:sticky lg:top-28 lg:self-start">
-      <p className={`font-mono text-[11px] uppercase tracking-[0.22em] ${dark ? 'text-paper/40' : 'text-muted'}`}>
+      <p className={`font-mono text-[11px] uppercase tracking-[0.22em] ${dark ? 'text-sage' : 'text-pine'}`}>
         {index} — {label}
       </p>
     </div>
@@ -83,7 +83,7 @@ export function Process() {
             {PROCESS.map((s, i) => (
               <Reveal key={s.n}>
                 <div className="hrow grid gap-2 py-8 sm:grid-cols-[48px_1fr_1.2fr] sm:gap-8">
-                  <span className="font-mono text-[13px] text-muted">0{i + 1}</span>
+                  <span className="font-mono text-[13px] text-pine">0{i + 1}</span>
                   <h3 className="text-lg font-semibold tracking-tight">{s.title}</h3>
                   <p className="leading-[1.75] text-muted">{s.body}</p>
                 </div>
@@ -100,30 +100,30 @@ export function Process() {
 
 export function Coverage() {
   return (
-    <section id="coverage" className="scroll-mt-24 bg-paper">
+    <section id="coverage" className="scroll-mt-10 bg-coal text-paper">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-28 sm:px-10 sm:py-40 lg:grid-cols-[200px_1fr] lg:gap-16">
-        <Rail index="02" label="Coverage" />
+        <Rail index="02" label="Coverage" dark />
         <div>
           <Reveal>
-            <SectionTitle>The policy, in plain words.</SectionTitle>
-            <p className="mt-5 max-w-xl leading-[1.75] text-muted">
+            <SectionTitle dark>The policy, in plain words.</SectionTitle>
+            <p className="mt-5 max-w-xl leading-[1.75] text-paper/55">
               The failures unique to agents acting on their own — covered up to clear limits, with
               exclusions stated plainly before you sign.
             </p>
           </Reveal>
-          <div className="mt-14">
+          <div className="steps-p mt-14" data-steps="5" data-step="0">
             {COVERAGE.map((c, i) => (
-              <Reveal key={c.t}>
-                <div className="hrow grid gap-2 py-7 sm:grid-cols-[48px_1fr_1.2fr] sm:gap-8">
-                  <span className="font-mono text-[13px] text-muted">0{i + 1}</span>
-                  <h3 className="text-lg font-semibold tracking-tight">{c.t}</h3>
-                  <p className="leading-[1.75] text-muted">{c.d}</p>
+              <Reveal key={c.t} className="step-row">
+                <div className="hrow-d grid gap-2 py-7 sm:grid-cols-[48px_1fr_1.2fr] sm:gap-8">
+                  <span className="font-mono text-[13px] text-sage">0{i + 1}</span>
+                  <h3 className="text-lg font-semibold tracking-tight text-paper">{c.t}</h3>
+                  <p className="leading-[1.75] text-paper/55">{c.d}</p>
                 </div>
               </Reveal>
             ))}
           </div>
           <Reveal>
-            <p className="mt-10 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+            <p className="mt-10 font-mono text-xs uppercase tracking-[0.18em] text-paper/40">
               Exclusions listed up front. No surprises — that&apos;s the product.
             </p>
           </Reveal>
@@ -446,7 +446,7 @@ export function Inspect() {
             </div>
           </div>
           <div>
-            <div className="inspect-track w-32 shrink-0 sm:w-44 lg:w-full">
+            <div className="inspect-track w-40 shrink-0 sm:w-52 lg:w-full">
                 <div className="inspect-loupe-fixed relative aspect-square w-full overflow-hidden border border-paper/60 bg-black">
                   <InspectDetail />
                   <span className="absolute left-2 top-2 z-10 font-mono text-[10px] tracking-widest text-paper/70">
@@ -491,7 +491,7 @@ export function Why() {
             {WHY.map((o, i) => (
               <Reveal key={o.n}>
                 <div className="hrow grid gap-2 py-8 sm:grid-cols-[48px_1fr_1.2fr] sm:gap-8">
-                  <span className="font-mono text-[13px] text-muted">0{i + 1}</span>
+                  <span className="font-mono text-[13px] text-pine">0{i + 1}</span>
                   <h3 className="text-lg font-semibold tracking-tight">{o.title}</h3>
                   <p className="leading-[1.75] text-muted">{o.body}</p>
                 </div>
@@ -509,24 +509,24 @@ export function Why() {
 export function Consult() {
   const [sent, setSent] = useState(false);
   return (
-    <section id="consult" className="scroll-mt-24 bg-paper">
+    <section id="consult" className="scroll-mt-10 bg-coal text-paper">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-28 sm:px-10 sm:py-40 lg:grid-cols-[200px_1fr_1fr] lg:gap-16">
-        <Rail index="06" label="Contact" />
+        <Rail index="06" label="Contact" dark />
         <div>
           <Reveal>
-            <SectionTitle>Let&apos;s cover your agent.</SectionTitle>
-            <p className="mt-5 leading-[1.75] text-muted">
+            <SectionTitle dark>Let&apos;s cover your agent.</SectionTitle>
+            <p className="mt-5 leading-[1.75] text-paper/55">
               Tell us what you&apos;re building. We&apos;ll scope cover for one agent in a single
               call — and take care of everything after that.
             </p>
-            <p className="mt-8 font-mono text-[13px] text-muted">consult@fade.example</p>
+            <p className="mt-8 font-mono text-[13px] text-sage">consult@fade.example</p>
           </Reveal>
         </div>
         <Reveal>
           {sent ? (
-            <div className="border-t border-ink pt-8">
-              <p className="font-display text-3xl font-light tracking-tight">Thanks — we&apos;ll be in touch.</p>
-              <p className="mt-4 leading-[1.75] text-muted">
+            <div className="border-t border-paper/20 pt-8">
+              <p className="font-display text-3xl font-light tracking-tight text-paper">Thanks — we&apos;ll be in touch.</p>
+              <p className="mt-4 leading-[1.75] text-paper/55">
                 Expect a reply within two business days with a scoped cover plan for your agent.
               </p>
             </div>
@@ -539,18 +539,18 @@ export function Consult() {
               className="space-y-8"
             >
               <div>
-                <label htmlFor="c-name" className="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                <label htmlFor="c-name" className="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-paper/45">
                   Name
                 </label>
                 <input
                   id="c-name"
                   required
                   placeholder="Ada Lovelace"
-                  className="w-full border-b border-ink/25 bg-transparent py-3 outline-none transition placeholder:text-ink/30 focus:border-ink"
+                  className="w-full border-b border-paper/25 bg-transparent py-3 outline-none transition placeholder:text-paper/25 focus:border-sage"
                 />
               </div>
               <div>
-                <label htmlFor="c-email" className="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                <label htmlFor="c-email" className="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-paper/45">
                   Work email
                 </label>
                 <input
@@ -558,11 +558,11 @@ export function Consult() {
                   type="email"
                   required
                   placeholder="ada@company.com"
-                  className="w-full border-b border-ink/25 bg-transparent py-3 outline-none transition placeholder:text-ink/30 focus:border-ink"
+                  className="w-full border-b border-paper/25 bg-transparent py-3 outline-none transition placeholder:text-paper/25 focus:border-sage"
                 />
               </div>
               <div>
-                <label htmlFor="c-msg" className="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                <label htmlFor="c-msg" className="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-paper/45">
                   What is your agent doing?
                 </label>
                 <textarea
@@ -570,10 +570,10 @@ export function Consult() {
                   rows={3}
                   required
                   placeholder="A support agent that can issue refunds…"
-                  className="w-full resize-none border-b border-ink/25 bg-transparent py-3 outline-none transition placeholder:text-ink/30 focus:border-ink"
+                  className="w-full resize-none border-b border-paper/25 bg-transparent py-3 outline-none transition placeholder:text-paper/25 focus:border-sage"
                 />
               </div>
-              <button type="submit" className="btn btn-solid">
+              <button type="submit" className="btn btn-paper">
                 Get covered
               </button>
             </form>
